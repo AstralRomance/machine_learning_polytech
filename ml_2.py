@@ -65,15 +65,20 @@ def glass():
     nbhrs = []
     scores = []
     for i in ('euclidean', 'manhattan', 'chebyshev', 'minkowski'):
-        for j in range(1, 10):
+        for j in range(2, 30):
             neigh = nbh(n_neighbors=j, metric=i, n_jobs=-1)
             classifier = neigh.fit(features_encoded, targets_encoded)
             print('Metric: {0}, n_neighbors: {1} - Score: {2}'.format(i, j ,classifier.score(features_encoded, targets_encoded)))
             nbhrs.append(j)
-            scores.append(classifier.score(features_encoded, targets_encoded))
+            scores.append(1-classifier.score(features_encoded, targets_encoded))
+        print('scores val:')
+        for k in scores:
+            print(k)
         plt.figure()
         plt.plot(nbhrs, scores)
         plt.title(i)
+        nbhrs = []
+        scores = []
     pred = neigh.predict([[1.516, 11.7, 1.01, 1.19, 72.59, 0.43, 11.44, 0.02, 0.1]])
     print('Predicted type: {0}'.format(pred))
 
