@@ -66,6 +66,7 @@ def glass():
     scores = []
     total_nbh = []
     total_scores = []
+    neigh = nbh()
     for i in ('euclidean', 'manhattan', 'chebyshev', 'minkowski'):
         for j in range(2, 30):
             neigh = nbh(n_neighbors=j, metric=i, n_jobs=-1)
@@ -82,8 +83,17 @@ def glass():
     for i, l in enumerate(lbl):
         plt.plot(total_nbh[i-1], total_scores[i-1], label=l)
     plt.legend()
-    pred = neigh.predict([[1.516, 11.7, 1.01, 1.19, 72.59, 0.43, 11.44, 0.02, 0.1]])
-    print('Predicted type: {0}'.format(pred))
+    tst = [[1.516, 11.7, 1.01, 1.19, 72.59, 0.43, 11.44, 0.02, 0.1]]
+    pred = neigh.predict(tst)
+    print('********')
+    print('Predicted type: {0}'.format(pred + 1))
+    print('GLASSSSSS')
+    for i in range(0, len(tst[0])):
+        temp = tst[0]
+        temp[i] = 0
+        pred = neigh.predict([temp])
+        print('********')
+        print('Predicted type: {0}'.format(pred+1))
 
 
 def svm():
