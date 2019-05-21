@@ -86,14 +86,19 @@ def glass():
     tst = [[1.516, 11.7, 1.01, 1.19, 72.59, 0.43, 11.44, 0.02, 0.1]]
     pred = neigh.predict(tst)
     print('********')
+    type(features_encoded)
     print('Predicted type: {0}'.format(pred + 1))
-    print('GLASSSSSS')
-    for i in range(0, len(tst[0])):
-        temp = tst[0]
-        temp[i] = 0
-        pred = neigh.predict([temp])
-        print('********')
-        print('Predicted type: {0}'.format(pred+1))
+    print('TEST WITH DELETED ELEMENTS')
+
+    for i in features_encoded:
+        for j in range(len(i)):
+            print('0 is element{0}'.format(j))
+            temp = i.copy()
+            temp[j] = 0
+            pred = neigh.predict([temp])
+            print('Predicted type: {0}'.format(pred+1))
+            print(temp)
+            print('next element')
 
 
 def svm():
@@ -123,12 +128,12 @@ def svm():
     plt.legend()
 
 
-tic_tac_toe()
+#tic_tac_toe()
 print('tic_tac_toe')
-spam()
+#spam()
 print('spam')
 glass()
 print('glass')
-svm()
+#svm()
 print('svm')
 plt.show()

@@ -68,19 +68,19 @@ def svm_point2():
     le = preprocessing.LabelEncoder()
     data_train, res_train = getData('svmdata2.txt', le)
     data_test, res_test = getData('svmdata2test.txt', le)
-    test_count = 0
-    train_count = 0
+    test_count = []
+    train_count = []
     for i in range(1, 500):
         clf = SVC(kernel='linear', C=i)
         clf.fit(data_train, res_train)
-        if metrics.accuracy_score(res_train, clf.predict(data_train)) >= 1.0:
-            train_count +=1
-            print(i)
-        if metrics.accuracy_score(res_test, clf.predict(data_test)) >= 1.0:
-            test_count +=1
-            print(i)
+        test_count.append(metrics.accuracy_score(res_train, clf.predict(data_train)))
+        train_count.append(metrics.accuracy_score(res_test, clf.predict(data_test)))
     print('test dataset {0}'.format(test_count))
     print('train dataset {0}'.format(train_count))
+    t = [i for i in range(1, 500)]
+    plt.plot(t, test_count, label='test dataset')
+    plt.plot(t, train_count, label='train dataset')
+    plt.legend()
 
 
 def svm_point3():
